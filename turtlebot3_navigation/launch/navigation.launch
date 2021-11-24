@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="open_rviz" default="true"/>
+  <!-- <arg name="map_file" default="$(find turtlebot3_navigation)/maps/map.yaml"/> -->
+  <arg name="point_cloud_map_file" default="$(find pointmap)/map/pointcloudmap_3831137000.pcd"/>
+  <arg name="move_forward_only" default="false"/>
+
+  <!-- Turtlebot3 -->
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+
+  <!-- Map server -->
+  <!-- <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/> -->
+  <node pkg="point_cloud_map_server" type="map_server" name="point_cloud_map_server" args="$(arg point_cloud_map_file)" output="screen">
+    <param name="frame_id" value="map"/>
+    <param name="width" value="384"/>
+    <param name="height" value="384"/>
+    <param name="resolution" value="0.05"/>
+    <param name="origin_x" value="-10.0"/>
+    <param name="origin_y" value="-10.0"/>
+  </node>
+
+  <!-- Map Publisher -->
+  <node pkg="point_cloud_map_server" type="map_loader" name="point_cloud_map_loader" args="$(arg point_cloud_map_file)" output="screen">
+  </node>
+
+  <!-- AMCL -->
+  <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
+
+  <!-- move_base -->
+  <include file="$(find turtlebot3_navigation)/launch/move_base.launch">
+    <arg name="model" value="$(arg model)" />
+    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+  </include>
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
+  </group>
+</launch>
