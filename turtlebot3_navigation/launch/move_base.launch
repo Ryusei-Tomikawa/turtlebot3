@@ -13,7 +13,7 @@
     <rosparam file="$(find turtlebot3_navigation)/param/costmap_common_params_$(arg model).yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find turtlebot3_navigation)/param/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find turtlebot3_navigation)/param/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find pointmap)/config/test_global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find pointcloudmap)/config/test_global_costmap_params.yaml" command="load" />
     <!-- <rosparam file="$(find turtlebot3_navigation)/param/move_base_params.yaml" command="load" /> -->
     <rosparam file="$(find turtlebot3_navigation)/param/dwa_local_planner_params_$(arg model).yaml" command="load" />
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>

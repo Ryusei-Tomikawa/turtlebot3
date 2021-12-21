@@ -4,7 +4,7 @@
   <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
   <arg name="open_rviz" default="true"/>
   <!-- <arg name="map_file" default="$(find turtlebot3_navigation)/maps/map.yaml"/> -->
-  <arg name="point_cloud_map_file" default="$(find pointcloudmap)/map/pointcloudmap_3831137000.pcd"/>
+  <arg name="point_cloud_map_file" default="$(find pointmap)/map/pointcloudmap_3831137000.pcd"/>
   <arg name="move_forward_only" default="false"/>
 
   <!-- Turtlebot3 -->
